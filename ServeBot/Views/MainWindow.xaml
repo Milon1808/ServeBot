@@ -15,10 +15,36 @@
         <!-- Chat Display Area with ScrollViewer -->
         <ScrollViewer Name="ChatScrollViewer" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" PanningMode="VerticalFirst">
             <ListBox ItemsSource="{Binding ServeMessages}" Margin="10,10,10,60" Background="#F0F2F5" BorderThickness="0">
+
+                <!-- Kompletter Stil für ListBoxItem -->
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <!-- Entferne alle Fokus- und Auswahl-Highlights -->
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="IsHitTestVisible" Value="False"/>
+
+                        <!-- Hover und Fokus Trigger deaktivieren -->
+                        <Style.Triggers>
+                            <!-- Hover-Effekt entfernen -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Trigger>
+                            <!-- Auswahl-Highlight deaktivieren -->
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="0,5">
-                            <!-- Nachrichten anzeigen basierend auf dem Sender -->
+                            <!-- Nachrichten basierend auf dem Sender -->
                             <Border Background="{Binding Sender, Converter={StaticResource MessageBackgroundConverter}}" CornerRadius="15" Padding="10" MaxWidth="250">
                                 <TextBlock Text="{Binding Text}" TextWrapping="Wrap" Foreground="#333333" IsHitTestVisible="False" />
                             </Border>
